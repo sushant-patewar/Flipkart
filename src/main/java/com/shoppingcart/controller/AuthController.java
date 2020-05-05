@@ -86,7 +86,7 @@ public class AuthController {
 	
 //	@Autowired
 //    private JavaMailSender mailSender;
-	
+// 	
 	private JavaMailSender mailSender;
 
     @Autowired
