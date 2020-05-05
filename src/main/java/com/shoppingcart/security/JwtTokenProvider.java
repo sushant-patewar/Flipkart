@@ -27,21 +27,34 @@ public class JwtTokenProvider {
     @Value("${app.jwtExpirationInMs}")
     private int jwtExpirationInMs;
 
-    public String generateToken(Authentication authentication) {
+//    public String generateToken(Authentication authentication) {
+//
+//        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+//
+//        Date now = new Date();
+//        Date expiryDate = new Date(now.getTime() + jwtExpirationInMs);
+//
+//        return Jwts.builder()
+//                .setSubject(Long.toString(userPrincipal.getId()))
+//                .setIssuedAt(new Date())
+//                .setExpiration(expiryDate)
+//                .signWith(SignatureAlgorithm.HS512, jwtSecret)
+//                .compact();
+//    }
+    
+    public String generateToken(UserPrincipal userPrincipal) {
+    	Date now = new Date();
+      Date expiryDate = new Date(now.getTime() + jwtExpirationInMs);
 
-        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
-
-        Date now = new Date();
-        Date expiryDate = new Date(now.getTime() + jwtExpirationInMs);
-
-        return Jwts.builder()
-                .setSubject(Long.toString(userPrincipal.getId()))
-                .setIssuedAt(new Date())
-                .setExpiration(expiryDate)
-                .signWith(SignatureAlgorithm.HS512, jwtSecret)
-                .compact();
+      return Jwts.builder()
+              .setSubject(Long.toString(userPrincipal.getId()))
+              .setIssuedAt(new Date())
+              .setExpiration(expiryDate)
+              .signWith(SignatureAlgorithm.HS512, jwtSecret)
+              .compact();
     }
-
+    	
+    
     public Long getUserIdFromJWT(String token) {
         Claims claims = Jwts.parser()
                 .setSigningKey(jwtSecret)

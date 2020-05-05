@@ -8,7 +8,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.shoppingcart.model.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
-	Optional<User> findByEmail(String email);
+	// Optional<User> findByEmail(String email); // Changing for mail functionality
+	User findByEmail(String email);
+	
 
     Optional<User> findByUsernameOrEmail(String username, String email);
 
